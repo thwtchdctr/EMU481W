@@ -26,7 +26,7 @@ export default function HomePage() {
     const data = {name, email, password, keywords};
 
     //Fetch the data from API/register route, make a POST request of JSON data that is equal to the data from the states.
-    const response = await fetch('/API/register', {
+    const response = await fetch('/api/register', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data)
