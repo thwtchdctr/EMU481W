@@ -17,6 +17,10 @@ export default function HomePage() {
   //Set keywords to what is entered into the keywords field
   const [keywords, setKeywords] = useState('');
 
+  const [loginEmail, setLoginEmail] = useState('');
+
+  const [loginPassword, setLoginPassword] = useState('');
+
   const handleSubmit = async (e) => {
 
     //Prevent default POST req
@@ -38,6 +42,28 @@ export default function HomePage() {
       console.log('POST FAILED');
     }
   };
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = {email: loginEmail, password: loginPassword};
+
+    try {
+          const reponse = await fetch('/api/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+          });
+      
+          if(response.ok){
+            console.log('login successful');
+          }else{
+            console.log('login failed');
+          }
+    } catch (error) {
+      console.error('Error during login: ', error);
+    }
+  }
 
   return (
     <div>
@@ -79,6 +105,18 @@ export default function HomePage() {
           />
         </div>
         <button type="submit">Register</button>
+      </form>
+      <h1>Login</h1>
+      <form onSubmit={handleLoginSubmit}>
+        <div>
+          <label>Email:</label>
+          <input type="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required />
+        </div>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
