@@ -1,0 +1,30 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+:root {
+--background: #ffffff; --foreground: #171717; --header-bg: #046A38; --button-bg: #adadad; --button-text-color: rgb(0, 0, 0);
+}
+body {
+color: var(--foreground);
+background: var(--background); font-family: Arial, Helvetica, sans-serif; margin: 0;
+padding: 0;
+}
+header {
+background: var(--header-bg); padding: 10px 20px;
+position: fixed;
+width: 100%;
+top: 0;
+ 
+display: flex;
+justify-content: space-between; align-items: center;
+z-index: 10;
+}
+nav {
+margin-left: auto;
+}
+@layer utilities { .button {
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+margin: 0 10px;
+background-color: var(--button-bg); color: var(--button-text-color);
+} }
