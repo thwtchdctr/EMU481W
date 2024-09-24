@@ -3,122 +3,134 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function HomePage() {
-  //set name to what is entered into the name field
-  const [name, setName] = useState('');
-  
-  //set email to what is entered into the email field
-  const [email, setEmail] = useState('');
-
-  //Set password to what is entered into the password field
-  const [password, setPassword] = useState('');
-
-  //Set keywords to what is entered into the keywords field
-  const [keywords, setKeywords] = useState('');
-
   const [loginEmail, setLoginEmail] = useState('');
-
   const [loginPassword, setLoginPassword] = useState('');
-
-  const handleSubmit = async (e) => {
-
-    //Prevent default POST req
-    e.preventDefault();
-
-    //Create const variable of the data
-    const data = {name, email, password, keywords};
-
-    //Fetch the data from API/register route, make a POST request of JSON data that is equal to the data from the states.
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
-    });
-
-    if(response.ok){
-      console.log(data);
-    } else{
-      console.log('POST FAILED');
-    }
-  };
+  const router = useRouter();
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-
-    const data = {email: loginEmail, password: loginPassword};
+    const data = { email: loginEmail, password: loginPassword };
 
     try {
-          const reponse = await fetch('/api/login', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-          });
-      
-          if(response.ok){
-            console.log('login successful');
-          }else{
-            console.log('login failed');
-          }
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        console.log('Login successful');
+        router.push('/logintesting');
+      } else {
+        console.log('Login failed');
+      }
     } catch (error) {
-      console.error('Error during login: ', error);
+      console.error('Error during login:', error);
     }
-  }
+  };
 
   return (
-    <div>
-      <h1>User Registration</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Email:</label>
+    <div style={pageStyle}>
+      {/* Header with Login Form */}
+      <header style={headerStyle}>
+        <form onSubmit={handleLoginSubmit} style={loginFormStyle}>
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            value={loginEmail}
+            onChange={(e) => setLoginEmail(e.target.value)}
             required
+            style={inputStyle}
           />
-        </div>
-        <div>
-          <label>Password:</label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            value={loginPassword}
+            onChange={(e) => setLoginPassword(e.target.value)}
             required
+            style={inputStyle}
           />
+          <button type="submit" style={buttonStyle}>Login</button>
+        </form>
+      </header>
+
+      {/* Centered Welcome Text */}
+      <main style={mainContentStyle}>
+        <h1 style={welcomeTextStyle}>WELCOME TO INSERT APP NAME HERE</h1>
+        <div style={registrationLinkContainer}>
+          <Link href='/registration-page'>
+            Register Here
+          </Link>
         </div>
-        <div>
-          <label>Keywords (comma-separated):</label>
-          <input
-            type="text"
-            value={keywords}
-            onChange={(e) => setKeywords(e.target.value)}
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <h1>Login</h1>
-      <form onSubmit={handleLoginSubmit}>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} required />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+      </main>
     </div>
   );
 }
 
+/* Styling */
+const pageStyle = {
+  backgroundColor: '#2f2f2f', // Slate grey background
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const headerStyle = {
+  display: 'flex',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  backgroundColor: '#2f2f2f', // Match header to background
+  padding: '10px',
+  color: 'white',
+};
+
+const loginFormStyle = {
+  display: 'flex',
+  alignItems: 'center',
+};
+
+const inputStyle = {
+  marginRight: '10px',
+  padding: '5px',
+  fontSize: '14px',
+  backgroundColor: 'white',
+  color: '#000',
+  border: '1px solid #ccc',
+  borderRadius: '3px',
+};
+
+const buttonStyle = {
+  padding: '5px 10px',
+  backgroundColor: 'white',
+  color: '#3b5998',
+  border: 'none',
+  cursor: 'pointer',
+  fontSize: '14px',
+};
+
+const mainContentStyle = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
+const welcomeTextStyle = {
+  fontSize: '3rem', // Large bold text
+  color: 'white',
+  fontWeight: 'bold',
+  fontFamily: "'Poppins', sans-serif", // Sleek fintech style
+  textAlign: 'center',
+  marginBottom: '20px',
+};
+
+const registrationLinkContainer = {
+  marginTop: '20px',
+  fontSize: '1.2rem',
+  color: 'white',
+};
