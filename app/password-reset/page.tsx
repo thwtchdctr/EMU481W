@@ -3,11 +3,12 @@
 import { FormEvent, useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../lib/firebase';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const PasswordResetPage = () => {
 
     const [resetEmail, setResetEmail] = useState('');
+    const router = useRouter();
 
     const handleResetSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -15,6 +16,7 @@ const PasswordResetPage = () => {
         try {
             await sendPasswordResetEmail(auth, resetEmail);
             console.log('Password email sent');
+            router.push('/');
         } catch (error) {
             console.error('Error sending password reset email: ', error);
         }

@@ -2,34 +2,39 @@
 
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
+import { auth, db } from '../lib/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import Link from 'next/link';
 
 const SignupPage = () => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
     const router = useRouter();
 
     const handleSignupSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        const data = {name, email, password};
+        setError(null);
 
         try {
-            const response = await fetch('/api/signup', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            await setDoc(doc(db, 'users', user.uid), {
+              name,
+              email
             });
 
-            if(response.ok){
-                console.log('User registered successfully');
-                router.push('/');
-            } else{
-                console.log('Registration failed');
-            }
+            console.log('User registered and additional data stored in Firestore');
+            router.push('/login');
+
         } catch (error) {
             console.error("Error at registration: ", error);
+            setError('Registration failed. Please check your details');
         }
     };
 
