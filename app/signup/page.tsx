@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 
 const SignupPage = () => {
@@ -8,6 +8,7 @@ const SignupPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
     const router = useRouter();
 
     const handleSignupSubmit = async (e: FormEvent) => {

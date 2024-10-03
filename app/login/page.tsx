@@ -64,6 +64,9 @@ const LoginPage = () => {
             </div>
           </form>
           <p className="mt-4 text-center">
+            Forgot password? <a href="/password-reset" className="text-green-500">Reset Password</a>
+          </p>
+          <p className="mt-4 text-center">
             Don't have an account? <a href="/signup" className="text-green-500">Sign Up</a>
           </p>
         </div>
