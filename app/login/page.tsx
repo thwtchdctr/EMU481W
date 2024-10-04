@@ -6,7 +6,7 @@ import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {auth} from '../lib/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from 'firebase/auth';
 
 
 const LoginPage = () => {
@@ -24,6 +24,7 @@ const LoginPage = () => {
 
         try {
 
+          await setPersistence(auth, browserSessionPersistence); //Temporary until logout function is implemented
           const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
           console.log("User logged in successfully as: ", userCredential.user);
           router.push('/');

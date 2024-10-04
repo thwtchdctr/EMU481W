@@ -1,5 +1,6 @@
-"use client"
+"use client" //Client component
 
+//Import statements
 import { FormEvent, useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../lib/firebase';
@@ -22,6 +23,7 @@ const PasswordResetPage = () => {
         }
     }
     
+    //UI
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
           <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
