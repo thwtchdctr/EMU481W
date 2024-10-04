@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { auth, db } from './lib/firebase';
 import { onAuthStateChanged, User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { logoutHook } from "./lib/logoutHook";
 
 export default function Home() {
 
@@ -16,6 +17,9 @@ export default function Home() {
   const [user, setUser] = useState<User | null>(null);
 
   const[userFullName, setUserFullName] = useState<string | null>(null);
+
+  const logout = logoutHook();
+
 
   const fetchUserFullName = async (uid: string) => {
     try {
@@ -61,6 +65,9 @@ export default function Home() {
         ) : (
           <p>You are not logged in.</p>
         )}
+      </div>
+      <div className="text-right">
+            <button className="button" onClick={logout}>Logout</button>
       </div>
     </div>
   );
