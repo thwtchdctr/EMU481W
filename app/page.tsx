@@ -50,7 +50,7 @@ export default function Home() {
           className="absolute inset-0 w-full h-full object-cover opacity-75"
         />
         <div className="relative z-10 text-center">
-          <h1 className="text-5xl font-bold text-white">Financial Literacy Website</h1>
+          <h1 className="text-5xl font-bold text-white">Profit Path</h1>
         </div>
       </section>
 

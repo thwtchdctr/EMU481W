@@ -13,7 +13,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #000000;
     --primary: #013b1c;
     --secondary: #026a6b;
     --accent: #1a1a1a;
@@ -83,14 +83,70 @@ p {
 input,
 textarea {
   color: black;
-  background-color: transparent;
+  background-color: #ffffff;
+  padding: 0.75rem;
   border: 1px solid var(--foreground);
+  border-radius: 0.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s ease;
 }
 
+input:focus,
+textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
+button {
+  background-color: var(--primary);
+  color: var(--accent);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--secondary);
+}
+
+.calculator-item {
+  background-color: #ffffff;
+  color: black;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.grid-calculators {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+section.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  color: var(--primary);
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+p {
+  color: black;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
-
