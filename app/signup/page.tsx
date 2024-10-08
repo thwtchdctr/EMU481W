@@ -58,26 +58,26 @@ const SignupPage = () => {
 
     //UI
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100 gradientBackground">
+            <div className="bg-[#EAFFF4] p-8 rounded-lg shadow-2xl w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
           <form onSubmit={handleSignupSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700">Full Name</label>
-              <input
-                type="text"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-green-500"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e)=>setName(e.target.value)}
-              />
-            </div>
+                        <input
+                            type="text"
+                            className="w-full px-4 py-2 border border-[#B3E4D1] rounded-lg focus:outline-none focus:border-[#04C05F]"
+                            placeholder="Enter your name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </div>
             <div className="mb-4">
               <label className="block text-gray-700">Email</label>
               <input
                 type="email"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-green-500"
-                placeholder="Enter your email"
+                            className="w-full px-4 py-2 border border-[#B3E4D1] rounded-lg focus:outline-none focus:border-[#04C05F]"
+                            placeholder="Enter your email"
                 value={email}
                 onChange={(e)=>setEmail(e.target.value)}
               />
@@ -86,19 +86,25 @@ const SignupPage = () => {
               <label className="block text-gray-700">Password</label>
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-green-500"
-                placeholder="Create a password"
+                            className="w-full px-4 py-2 border border-[#B3E4D1] rounded-lg focus:outline-none focus:border-[#04C05F]"
+                            placeholder="Create a password"
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
               />
             </div>
-            <div className="text-right">
-              <button className="button" type="submit">Sign Up</button>
-            </div>
+                    <div className="text-right">
+                        <button className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-300 ease-in-out mb-4" type="submit">
+                            Sign Up
+                        </button>
+
+                        <div className="flex justify-end items-center space-x-2">
+                            <p className="subtext">Already have an account?</p>
+                            <a href="/login" className="inline-block bg-transparent border border-green-500 text-green-500 font-medium py-1.5 px-4 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-300 ease-in-out">
+                                Log In
+                            </a>
+                        </div>
+                    </div>
           </form>
-          <p className="mt-4 text-center">
-            Already have an account? <a href="/login" className="text-green-500">Log In</a>
-          </p>
         </div>
       </div>
     );

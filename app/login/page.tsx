@@ -37,7 +37,7 @@ const LoginPage = () => {
 
 
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 gradientBackground">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Log In</h2>
 
@@ -49,8 +49,8 @@ const LoginPage = () => {
             <label className="block text-gray-700">Email</label>
             <input
               type="email"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-green-500"
-              placeholder="Enter your email"
+                            className="w-full px-4 py-2 border border-[#B3E4D1] rounded-lg focus:outline-none focus:border-[#04C05F]"
+                            placeholder="Enter your email"
               value={loginEmail}
               onChange={(e) => setLoginEmail(e.target.value)}
               required
@@ -60,24 +60,33 @@ const LoginPage = () => {
             <label className="block text-gray-700">Password</label>
             <input
               type="password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-green-500"
-              placeholder="Enter your password"
+                            className="w-full px-4 py-2 border border-[#B3E4D1] rounded-lg focus:outline-none focus:border-[#04C05F]"
+                            placeholder="Enter your password"
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
               required
             />
           </div>
-          <div className="text-right">
-            <button className="button" type="submit">Log In</button>
-          </div>
+                    <div className="text-right">
+                        <button className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-[#25B954] hover:text-white transition-colors duration-300 ease-in-out" type="submit">
+                            Log In
+                        </button>
+                    </div>
+
+                    <div className="flex justify-end items-center space-x-2 mt-4">
+                        <p className="subtext">
+                            Forgot password? <Link href="/password-reset" className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-[#25B954] hover:text-white transition-colors duration-300 ease-in-out mb-4" type="submit">Reset Password</Link>
+                        </p>
+                    </div>
+
+                    <div className="flex justify-end items-center space-x-2 mt-4">
+                        <p className="subtext">Don't have an account?</p>
+                        <Link href="/signup" className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-[#25B954] hover:text-white transition-colors duration-300 ease-in-out mb-4" type="submit">
+                            Sign Up
+                        </Link>
+                    </div>
+
         </form>
-        
-        <p className="mt-4 text-center">
-          Forgot password? <Link href="/password-reset" className="text-green-500">Reset Password</Link>
-        </p>
-        <p className="mt-4 text-center">
-          Don't have an account? <Link href="/signup" className="text-green-500">Sign Up</Link>
-        </p>
       </div>
     </div>
   );

@@ -11,13 +11,13 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --primary: #013b1c;
-    --secondary: #026a6b;
-    --accent: #1a1a1a;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+        --primary: #25B954;
+        --secondary: #026a6b;
+        --accent: #1a1a1a;
+    }
 }
 
 body {
@@ -74,6 +74,12 @@ h1 {
   font-weight: bold;
 }
 
+h2 {
+    color: var(--primary);
+    font-size: 4rem;
+    font-weight: bold;
+}
+
 p {
   color: var(--foreground);
   font-size: 1.25rem;
@@ -87,6 +93,16 @@ textarea {
   border: 1px solid var(--foreground);
 }
 
+.subtext {
+    font-size: 1rem;
+    color: dimgray;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.gradientBackground {
+    background: linear-gradient(145deg, #A3D9A5, #6BCB77, #1B8A2B, #00B3A6);
+}
 
 @layer utilities {
   .text-balance {
