@@ -1,19 +1,19 @@
-import { auth } from './firebase'; // Import Firebase auth instance
+import { auth } from './firebase';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 
-export const logoutHook = () => {
-    const router = useRouter(); // useRouter is only used within this hook, which is a valid usage of hooks
+export const useLogoutHook = () => {
+    const router = useRouter();
   
     const logout = async () => {
       try {
-        await signOut(auth); // Sign out the current user
+        await signOut(auth);
         console.log('User logged out successfully');
-        router.push('/'); // Redirect to the homepage after logout
+        router.push('/');
       } catch (error) {
         console.error('Error logging out:', error);
       }
     };
   
-    return logout; // Return the logout function
-  };
+    return logout;
+};

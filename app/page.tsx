@@ -1,33 +1,24 @@
-//TO-DO: On browser/app exit, logout
+"use client";
 
-
-"use client" //Client component
-
-//Import statements
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { auth, db } from './lib/firebase';
 import { onAuthStateChanged, User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import { logoutHook } from "./lib/logoutHook";
+import { useLogoutHook } from "./lib/logoutHook";
 
 export default function Home() {
-
-  //Variable for user state, represents if user is logged in or not. Either a User or null, initialized to null
   const [user, setUser] = useState<User | null>(null);
-
-  const[userFullName, setUserFullName] = useState<string | null>(null);
-
-  const logout = logoutHook();
-
+  const [userFullName, setUserFullName] = useState<string | null>(null);
+  const logout = useLogoutHook();
 
   const fetchUserFullName = async (uid: string) => {
     try {
-      const docRef = doc(db, 'users', uid); // Reference to the user's document in Firestore
-      const docSnap = await getDoc(docRef); // Fetch the document
+      const docRef = doc(db, 'users', uid);
+      const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
-        setUserFullName(data?.name || null); // Set the user's name if found
+        setUserFullName(data?.name || null);
       } else {
         console.log('No such document!');
       }
@@ -36,15 +27,12 @@ export default function Home() {
     }
   };
 
-  //Unsure what useEffect does, Stack Overflow told me to
   useEffect(() => {
-    console.log('Current user:', auth.currentUser);
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log('onAuthStateChanged fired, user is: ', user); //Console debug statement
-      if(user){
+      if (user) {
         setUser(user);
         fetchUserFullName(user.uid);
-      } else{
+      } else {
         setUser(null);
         setUserFullName(null);
       }
@@ -53,21 +41,21 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
 
-  //UI
   return (
-    <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-      <h2 style={{ marginTop: '60px' }}>Welcome to the Financial Literacy Website</h2>
+    <div>
+      <section className="relative bg-gray-200 h-screen flex justify-center items-center">
+        <img
+          src="https://img.freepik.com/free-vector/gradient-screensaver-green-tones_23-2148368885.jpg"
+          alt="Financial Literacy"
+          className="absolute inset-0 w-full h-full object-cover opacity-75"
+        />
+        <div className="relative z-10 text-center">
+          <h1 className="text-5xl font-bold text-white">Financial Literacy Website</h1>
+        </div>
+      </section>
 
-      {/* Conditionally render login state */}
-      <div style={{ marginTop: '20px' }}>
-        {user ? (
-          <p>You are logged in as: {userFullName}</p>
-        ) : (
-          <p>You are not logged in.</p>
-        )}
-      </div>
       <div className="text-right">
-            <button className="button" onClick={logout}>Logout</button>
+        <button className="button" onClick={logout}>Logout</button>
       </div>
     </div>
   );
