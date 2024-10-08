@@ -88,14 +88,20 @@ p {
 
 input,
 textarea {
-  color: black;
-  background-color: #ffffff;
-  padding: 0.75rem;
-  border: 1px solid var(--foreground);
-  border-radius: 0.5rem;
-  width: 100%;
-  margin-bottom: 1rem;
-  transition: border-color 0.3s ease;
+    color: black;
+    background-color: #ffffff;
+    padding: 0.75rem;
+    border: 1px solid #B3E4D1;
+    border-radius: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--primary);
+    outline: none;
 }
 
 .subtext {
@@ -106,7 +112,7 @@ textarea {
 }
 
 .gradientBackground {
-    background: linear-gradient(145deg, #A3D9A5, #6BCB77, #1B8A2B, #00B3A6);
+    background: linear-gradient(145deg, #A3D9A5, #1BF02B, #00B3A6);
 }
 
 button {
