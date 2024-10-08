@@ -107,6 +107,7 @@ textarea {
 
 .gradientBackground {
     background: linear-gradient(145deg, #A3D9A5, #6BCB77, #1B8A2B, #00B3A6);
+}
 
 button {
   background-color: var(--primary);
