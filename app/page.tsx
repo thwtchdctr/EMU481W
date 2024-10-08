@@ -55,7 +55,7 @@ export default function Home() {
       </section>
 
       <div className="text-right">
-        <button className="button" onClick={logout}>Logout</button>
+              <button className="button mt-1 bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-300 ease-in-out mb-4" onClick={logout}>Logout</button>
       </div>
     </div>
   );

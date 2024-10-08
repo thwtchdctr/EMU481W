@@ -101,7 +101,44 @@ textarea {
 }
 
 .gradientBackground {
-    background: linear-gradient(145deg, #A3D9A5, #6BCB77, #1B8A2B, #00B3A6);
+    background: linear-gradient(145deg, #A3D9A5, #3BFF4B, #00B3A6);
+}
+.gradientBackground2 {
+    background: linear-gradient(145deg,#00B3A6, #3BFF4B, #A3D9A5);
+}
+
+button {
+  background-color: var(--primary);
+  color: var(--accent);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--secondary);
+}
+
+.calculator-item {
+  background-color: #ffffff;
+  color: black;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.grid-calculators {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+section.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 @layer utilities {
