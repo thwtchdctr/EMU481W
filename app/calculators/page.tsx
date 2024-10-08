@@ -4,18 +4,15 @@ import { useState } from 'react';
 
 export default function CalculatorsPage() {
   return (
-      <section className="flex flex-col">
-          {/* Hero section with background image and Financial Calculators text */}
-          <div className="relative h-64 bg-hero-image bg-cover bg-center">
+      <section className="gradientBackground2 flex flex-col min-h-screen">
+          <div className="gradientBackground2 relative h-32 bg-hero-image bg-cover bg-center mb-8">
               <div className="absolute inset-0 bg-black opacity-50"></div>
               <div className="relative z-10 flex items-center justify-center h-full">
                   <h1 className="text-5xl font-bold text-white">Financial Calculators</h1>
               </div>
           </div>
-
-          {/* Main section containing the calculators */}
-          <section className="container mx-auto py-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <section className="container mx-auto py-2 h-auto">
+              <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   <CompositeInterestCalculator />
                   <YearsOfInvestingCalculator />
                   <RetirementCalculator />
@@ -74,7 +71,7 @@ function CompositeInterestCalculator() {
         onChange={(e) => setCompoundsPerYear(Number(e.target.value))}
       />
 
-      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={calculateCompositeInterest}>
+      <button className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-300 ease-in-out mb-4" onClick={calculateCompositeInterest}>
         Calculate
       </button>
       <p className="mt-4 text-lg text-gray-800">Future Value: ${futureValue.toFixed(2)}</p>
@@ -121,7 +118,7 @@ function YearsOfInvestingCalculator() {
         onChange={(e) => setYears(Number(e.target.value))}
       />
 
-      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={calculatePeriodicInvesting}>
+          <button className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-300 ease-in-out mb-4" onClick={calculatePeriodicInvesting}>
         Calculate
       </button>
       <p className="mt-4 text-lg text-gray-800">Future Value: ${futureValue.toFixed(2)}</p>
@@ -178,8 +175,7 @@ function RetirementCalculator() {
         value={rate}
         onChange={(e) => setRate(Number(e.target.value))}
       />
-
-      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={calculateRetirementSavings}>
+          <button className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-300 ease-in-out mb-4" onClick={calculateRetirementSavings}>
         Calculate
       </button>
       <p className="mt-4 text-lg text-gray-800">Retirement Savings: ${retirementSavings.toFixed(2)}</p>
