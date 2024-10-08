@@ -88,9 +88,20 @@ p {
 
 input,
 textarea {
-  color: black;
-  background-color: transparent;
-  border: 1px solid var(--foreground);
+    color: black;
+    background-color: #ffffff;
+    padding: 0.75rem;
+    border: 1px solid #B3E4D1;
+    border-radius: 0.5rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--primary);
+    outline: none;
 }
 
 .subtext {
@@ -146,4 +157,3 @@ section.container {
     text-wrap: balance;
   }
 }
-
