@@ -4,24 +4,25 @@ import { useState } from 'react';
 
 export default function CalculatorsPage() {
   return (
-    <section>
-      {}
-      <div className="relative h-64 bg-hero-image bg-cover bg-center">
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 flex items-center justify-center h-full">
-          <h1 className="text-5xl font-bold text-white">Financial Calculators</h1>
-        </div>
-      </div>
+      <section className="flex flex-col">
+          {/* Hero section with background image and Financial Calculators text */}
+          <div className="relative h-64 bg-hero-image bg-cover bg-center">
+              <div className="absolute inset-0 bg-black opacity-50"></div>
+              <div className="relative z-10 flex items-center justify-center h-full">
+                  <h1 className="text-5xl font-bold text-white">Financial Calculators</h1>
+              </div>
+          </div>
 
-      {}
-      <section className="container mx-auto py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <CompositeInterestCalculator />
-          <YearsOfInvestingCalculator />
-          <RetirementCalculator />
-        </div>
+          {/* Main section containing the calculators */}
+          <section className="container mx-auto py-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <CompositeInterestCalculator />
+                  <YearsOfInvestingCalculator />
+                  <RetirementCalculator />
+              </div>
+          </section>
       </section>
-    </section>
+
   );
 }
 
