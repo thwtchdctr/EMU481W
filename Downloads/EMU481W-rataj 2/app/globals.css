@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root Color Variables for Green and White Theme */
+:root {
+  --background: #ffffff; /* White background */
+  --foreground: #1a202c; /* Dark text for readability */
+  --primary: #0a7c27; /* Dark Green */
+  --secondary: #0fa623; /* Lighter Green */
+  --accent: #ffffff; /* White for accents */
+}
+
+body {
+  background-color: var(--background); /* White background */
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header Styles */
+header {
+  background-color: var(--primary); /* Green header */
+  color: var(--accent);
+}
+
+nav a {
+  color: var(--accent); /* White text on green */
+  font-weight: 500;
+  padding: 8px 12px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--secondary); /* Lighter green on hover */
+}
+
+nav .button {
+  background-color: var(--secondary); /* Lighter green buttons */
+  color: var(--accent); /* White text on buttons */
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+nav .button:hover {
+  background-color: var(--primary);
+}
+
+/* Footer Styling */
+footer {
+  background-color: var(--primary);
+  color: var(--accent);
+}
+
+/* Container styling for main sections */
+section.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Specific Element Styling */
+h1 {
+  color: var(--primary);
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+p {
+  color: var(--foreground);
+  font-size: 1.25rem;
+}
+
+button {
+  background-color: var(--primary);
+  color: var(--accent);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--secondary);
+}
+
