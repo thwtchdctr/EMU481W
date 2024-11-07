@@ -1,47 +1,38 @@
-//Mark as client-side component
-"use client"
+"use client";
 
-//Import statements
+// Import statements
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import {auth} from '../lib/firebase';
+import { auth } from '../lib/firebase';
 import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from 'firebase/auth';
 
-
 const LoginPage = () => {
-    //States to store loginEmail, loginPassword, login errors
-    const [loginEmail, setLoginEmail] = useState('');
-    const [loginPassword, setLoginPassword] = useState('');
-    const [error, setError] = useState<string | null>(null);
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
-    //Initialize router to allow for navigation between pages
-    const router = useRouter();
+  const handleLoginSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError(null);
 
-    const handleLoginSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        setError(null);
+    try {
+      await setPersistence(auth, browserSessionPersistence);
+      const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      console.log("User logged in successfully as:", userCredential.user);
+      router.push('/');
+    } catch (error) {
+      console.error('Error during login:', error);
+      setError('Login failed. Please check your credentials.');
+    }
+  };
 
-        try {
-
-          await setPersistence(auth, browserSessionPersistence); //Temporary until logout function is implemented
-          const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-          console.log("User logged in successfully as: ", userCredential.user);
-          router.push('/');
-       
-        } catch (error) {
-            console.error('Error during login: ', error);
-            setError('Login failed. Please check your credentials');
-        }
-    };
-
-
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Log In</h2>
 
-        {/* Display error message if login fails */}
         {error && <p className="text-red-500 text-center">{error}</p>}
 
         <form onSubmit={handleLoginSubmit}>
@@ -68,19 +59,20 @@ const LoginPage = () => {
             />
           </div>
           <div className="text-right">
-            <button className="button" type="submit">Log In</button>
+            <button className="px-4 py-2 bg-green-500 text-white rounded-lg" type="submit">Log In</button>
           </div>
         </form>
-        
+
         <p className="mt-4 text-center">
           Forgot password? <Link href="/password-reset" className="text-green-500">Reset Password</Link>
         </p>
         <p className="mt-4 text-center">
-          Don't have an account? <Link href="/signup" className="text-green-500">Sign Up</Link>
+          Don&apos;t have an account? <Link href="/signup" className="text-green-500">Sign Up</Link>
         </p>
       </div>
     </div>
   );
-  };
-  
-  export default LoginPage;
+};
+
+export default LoginPage;
+
