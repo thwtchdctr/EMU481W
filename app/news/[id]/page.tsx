@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
 
 type Article = {
   id: number;
@@ -12,6 +13,8 @@ type Article = {
   content: string;
   imageUrl: string;
   url: string;
+  sentiment: string;
+  category: string;
 };
 
 export default function NewsDetailPage({ params }: { params: { id: string } }) {
@@ -45,6 +48,8 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
           className="w-full h-64 object-cover mb-6 rounded"
         />
         <h1 className="text-4xl font-bold text-teal-700 mb-4">{article.title}</h1>
+        <p className="text-gray-700 mb-6">SENTIMENT: {article.sentiment}</p>
+        <p className="text-gray-700 mb-6">CATEGORY: {article.category}</p>
         <p className="text-gray-700 mb-6">{article.description}</p>
         <p className="text-gray-900 leading-relaxed whitespace-pre-wrap">{article.content}</p>
         <div className="flex justify-between items-center text-sm text-gray-500 mt-6">

@@ -14,6 +14,8 @@ type Article = {
   date: string;
   imageUrl: string;
   url: string; // Assuming you have a URL to the full article
+  sentiment: string;
+  category: string;
 };
 
 export default function NewsFeed() {
@@ -53,6 +55,8 @@ export default function NewsFeed() {
                   className="w-full h-48 object-cover mb-4 rounded-t-lg"
                 />
                 <h2 className="text-2xl font-semibold text-teal-700 mb-2 leading-tight">{article.title}</h2>
+                <p className="text-gray-700 mb line-clamp-3">CATEGORY: {article.category}</p>
+                <p className="text-gray-700 mb-4 line-clamp-3">SENTIMENT: {article.sentiment}</p>
                 <p className="text-gray-700 mb-4 line-clamp-3">{article.description}</p>
                 <div className="flex justify-between items-center text-sm text-gray-500 mt-4">
                   <span>{article.source}</span>
