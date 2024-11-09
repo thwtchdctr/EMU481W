@@ -2,40 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Root Color Variables for Green and White Theme */
 :root {
-  --background: #f4f8fb;
-  --foreground: #1a202c;
-  --primary: #0a7c27;
-  --secondary: #0fa623;
-  --accent: #ffffff;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-        --primary: #25B954;
-        --secondary: #026a6b;
-        --accent: #1a1a1a;
-    }
+  --background: #ffffff; /* White background */
+  --foreground: #1a202c; /* Dark text for readability */
+  --primary: #0a7c27; /* Dark Green */
+  --secondary: #0fa623; /* Lighter Green */
+  --accent: #ffffff; /* White for accents */
 }
 
 body {
+  background-color: var(--background); /* White background */
   color: var(--foreground);
-  background: var(--background);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Header Styles */
 header {
-  background-color: var(--accent);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--primary); /* Green header */
+  color: var(--accent);
 }
 
 nav a {
-  color: var(--foreground);
+  color: var(--accent); /* White text on green */
   font-weight: 500;
   padding: 8px 12px;
   text-decoration: none;
@@ -43,79 +35,44 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--primary);
+  color: var(--secondary); /* Lighter green on hover */
 }
 
 nav .button {
-  background-color: var(--primary);
-  color: var(--accent);
+  background-color: var(--secondary); /* Lighter green buttons */
+  color: var(--accent); /* White text on buttons */
   padding: 8px 16px;
   border-radius: 8px;
   transition: background-color 0.3s ease;
 }
 
 nav .button:hover {
-  background-color: var(--secondary);
+  background-color: var(--primary);
 }
 
-section {
-  position: relative;
-  height: 80vh;
-  background: var(--background);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+/* Footer Styling */
+footer {
+  background-color: var(--primary);
+  color: var(--accent);
 }
 
+/* Container styling for main sections */
+section.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Specific Element Styling */
 h1 {
   color: var(--primary);
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
-}
-
-h2 {
-    color: var(--primary);
-    font-size: 4rem;
-    font-weight: bold;
 }
 
 p {
   color: var(--foreground);
   font-size: 1.25rem;
-  margin-top: 16px;
-}
-
-input,
-textarea {
-    color: black;
-    background-color: #ffffff;
-    padding: 0.75rem;
-    border: 1px solid #B3E4D1;
-    border-radius: 0.5rem;
-    width: 100%;
-    margin-bottom: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-input:focus,
-textarea:focus {
-    border-color: var(--primary);
-    outline: none;
-}
-
-.subtext {
-    font-size: 1rem;
-    color: dimgray;
-    margin-top: 8px;
-    text-align: center;
-}
-
-.gradientBackground {
-    background: linear-gradient(145deg, #A3D9A5, #3BFF4B, #00B3A6);
-}
-.gradientBackground2 {
-    background: linear-gradient(145deg,#00B3A6, #3BFF4B, #A3D9A5);
 }
 
 button {
@@ -131,29 +88,3 @@ button:hover {
   background-color: var(--secondary);
 }
 
-.calculator-item {
-  background-color: #ffffff;
-  color: black;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  border-radius: 1rem;
-}
-
-.grid-calculators {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  padding: 2rem;
-}
-
-section.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}

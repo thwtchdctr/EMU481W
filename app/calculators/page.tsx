@@ -1,25 +1,28 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function CalculatorsPage() {
   return (
-      <section className="gradientBackground2 flex flex-col min-h-screen">
-          <div className="gradientBackground2 relative h-32 bg-hero-image bg-cover bg-center mb-8">
-              <div className="absolute inset-0 bg-black opacity-50"></div>
-              <div className="relative z-10 flex items-center justify-center h-full">
-                  <h1 className="text-5xl font-bold text-white">Financial Calculators</h1>
-              </div>
-          </div>
-          <section className="container mx-auto py-2 h-auto">
-              <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  <CompositeInterestCalculator />
-                  <YearsOfInvestingCalculator />
-                  <RetirementCalculator />
-              </div>
-          </section>
-      </section>
+    <section>
+      {/* Hero Section with Green Background */}
+      <div className="relative h-64 bg-gradient-to-r from-green-400 via-teal-500 to-green-500 bg-cover bg-center">
+        {/* Ensure solid green background, removing any black */}
+        <div className="absolute inset-0 bg-green-500 opacity-100"></div>
+        <div className="relative z-10 flex items-center justify-center h-full bg-green-500 p-8">
+          <h1 className="text-5xl font-bold text-white">Financial Calculators</h1>
+        </div>
+      </div>
 
+      {/* Calculator Section */}
+      <section className="container mx-auto py-8 bg-gradient-to-br from-green-100 to-teal-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <CompositeInterestCalculator />
+          <YearsOfInvestingCalculator />
+          <RetirementCalculator />
+        </div>
+      </section>
+    </section>
   );
 }
 
@@ -37,44 +40,44 @@ function CompositeInterestCalculator() {
   };
 
   return (
-    <div className="calculator-item bg-white shadow-md p-6 rounded-lg">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Composite Interest Calculator</h2>
-      <label>Principal ($):</label>
+    <div className="calculator-item bg-gradient-to-br from-green-50 to-teal-50 shadow-lg p-6 rounded-lg">
+      <h2 className="text-2xl font-bold text-teal-700 mb-4">Composite Interest Calculator</h2>
+      <label className="text-teal-900">Principal ($):</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={principal}
         onChange={(e) => setPrincipal(Number(e.target.value))}
       />
 
-      <label>Annual Interest Rate (%):</label>
+      <label className="text-teal-900">Annual Interest Rate (%):</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={rate}
         onChange={(e) => setRate(Number(e.target.value))}
       />
 
-      <label>Years:</label>
+      <label className="text-teal-900">Years:</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={time}
         onChange={(e) => setTime(Number(e.target.value))}
       />
 
-      <label>Compounds Per Year:</label>
+      <label className="text-teal-900">Compounds Per Year:</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={compoundsPerYear}
         onChange={(e) => setCompoundsPerYear(Number(e.target.value))}
       />
 
-      <button className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-300 ease-in-out mb-4" onClick={calculateCompositeInterest}>
+      <button className="bg-gradient-to-r from-teal-500 to-green-500 text-white px-4 py-2 rounded hover:from-teal-600 hover:to-green-600 shadow-lg transition-all" onClick={calculateCompositeInterest}>
         Calculate
       </button>
-      <p className="mt-4 text-lg text-gray-800">Future Value: ${futureValue.toFixed(2)}</p>
+      <p className="mt-4 text-lg text-teal-800">Future Value: ${futureValue.toFixed(2)}</p>
     </div>
   );
 }
@@ -92,36 +95,36 @@ function YearsOfInvestingCalculator() {
   };
 
   return (
-    <div className="calculator-item bg-white shadow-md p-6 rounded-lg">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Years of Investing (Periodic)</h2>
-      <label>Monthly Contribution ($):</label>
+    <div className="calculator-item bg-gradient-to-br from-green-50 to-teal-50 shadow-lg p-6 rounded-lg">
+      <h2 className="text-2xl font-bold text-teal-700 mb-4">Years of Investing (Periodic)</h2>
+      <label className="text-teal-900">Monthly Contribution ($):</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={monthlyContribution}
         onChange={(e) => setMonthlyContribution(Number(e.target.value))}
       />
 
-      <label>Annual Interest Rate (%):</label>
+      <label className="text-teal-900">Annual Interest Rate (%):</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={annualRate}
         onChange={(e) => setAnnualRate(Number(e.target.value))}
       />
 
-      <label>Years:</label>
+      <label className="text-teal-900">Years:</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={years}
         onChange={(e) => setYears(Number(e.target.value))}
       />
 
-          <button className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-300 ease-in-out mb-4" onClick={calculatePeriodicInvesting}>
+      <button className="bg-gradient-to-r from-teal-500 to-green-500 text-white px-4 py-2 rounded hover:from-teal-600 hover:to-green-600 shadow-lg transition-all" onClick={calculatePeriodicInvesting}>
         Calculate
       </button>
-      <p className="mt-4 text-lg text-gray-800">Future Value: ${futureValue.toFixed(2)}</p>
+      <p className="mt-4 text-lg text-teal-800">Future Value: ${futureValue.toFixed(2)}</p>
     </div>
   );
 }
@@ -142,44 +145,47 @@ function RetirementCalculator() {
   };
 
   return (
-    <div className="calculator-item bg-white shadow-md p-6 rounded-lg">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Retirement Calculator</h2>
-      <label>Current Savings ($):</label>
+    <div className="calculator-item bg-gradient-to-br from-green-50 to-teal-50 shadow-lg p-6 rounded-lg">
+      <h2 className="text-2xl font-bold text-teal-700 mb-4">Retirement Calculator</h2>
+      <label className="text-teal-900">Current Savings ($):</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={currentSavings}
         onChange={(e) => setCurrentSavings(Number(e.target.value))}
       />
 
-      <label>Monthly Contribution ($):</label>
+      <label className="text-teal-900">Monthly Contribution ($):</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={monthlyContribution}
         onChange={(e) => setMonthlyContribution(Number(e.target.value))}
       />
 
-      <label>Years to Retirement:</label>
+      <label className="text-teal-900">Years to Retirement:</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={yearsToRetirement}
         onChange={(e) => setYearsToRetirement(Number(e.target.value))}
       />
 
-      <label>Annual Interest Rate (%):</label>
+      <label className="text-teal-900">Annual Interest Rate (%):</label>
       <input
         type="number"
-        className="input mb-4"
+        className="input mb-4 bg-white border border-teal-300 p-2 rounded"
         value={rate}
         onChange={(e) => setRate(Number(e.target.value))}
       />
-          <button className="bg-transparent border border-[#25B954] text-[#25B954] font-medium py-1.5 px-4 rounded-md hover:bg-green-500 hover:text-white transition-colors duration-300 ease-in-out mb-4" onClick={calculateRetirementSavings}>
+
+      <button className="bg-gradient-to-r from-teal-500 to-green-500 text-white px-4 py-2 rounded hover:from-teal-600 hover:to-green-600 shadow-lg transition-all" onClick={calculateRetirementSavings}>
         Calculate
       </button>
-      <p className="mt-4 text-lg text-gray-800">Retirement Savings: ${retirementSavings.toFixed(2)}</p>
+      <p className="mt-4 text-lg text-teal-800">Retirement Savings: ${retirementSavings.toFixed(2)}</p>
     </div>
   );
 }
+
+
 
