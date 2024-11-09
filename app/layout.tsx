@@ -45,8 +45,8 @@ export default function RootLayout({
               <a href="/news" className="text-white hover:text-yellow-200 transition-all duration-300">
                 News Feed
               </a>
-              <a href="/nlp" className="text-white hover:text-yellow-200 transition-all duration-300">
-                NLP
+              <a href="/qa" className="text-white hover:text-yellow-200 transition-all duration-300">
+                QA
               </a>
             </div>
 
@@ -81,3 +81,4 @@ export default function RootLayout({
     </html>
   );
 }
+
