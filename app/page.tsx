@@ -6,6 +6,7 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useLogoutHook } from './lib/logoutHook';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -48,9 +49,9 @@ export default function Home() {
         <img
           src="https://img.freepik.com/free-vector/gradient-screensaver-green-tones_23-2148368885.jpg"
           alt="Financial Literacy"
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
-        <div className="relative z-10 text-center text-white p-8">
+        <div className="relative z-10 text-center text-white p-8 float:left">
           <motion.h1
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -67,7 +68,10 @@ export default function Home() {
           >
             Take control of your financial life with our interactive tools and resources. Calculate interest, plan your retirement, and stay updated with the latest market trends.
           </motion.p>
-        </div>
+              </div>
+              <div className="float:right">
+                  <img src="https://img.freepik.com/free-vector/hand-drawn-revenue-operations-illustration_23-2150961528.jpg" alt="Profit Path logo" className="rounded"></img>
+              </div>
       </section>
 
       {/* Welcome and Logout Section */}

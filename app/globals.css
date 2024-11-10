@@ -87,4 +87,7 @@ button {
 button:hover {
   background-color: var(--secondary);
 }
+img.rounded {
+    border-radius: 5%;
+}
 

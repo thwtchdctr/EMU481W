@@ -110,7 +110,7 @@ const SignupPage: React.FC = () => { // Added return type annotation React.FC
               <button
                 key={interest}
                 type="button"
-                className={`px-3 py-2 border rounded-lg ${isSelected(interest) ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
+                className={`px-3 py-2 border rounded-lg ${isSelected(interest) ? 'bg-green-500 text-white' : 'bg-gray-400'}`}
                 onClick={() => toggleInterest(interest)}
               >
                 {interest}
