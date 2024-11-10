@@ -49,7 +49,8 @@ export default function RootLayout({
               </a>
             </div>
             <div className="flex space-x-4">
-              <a href="/signup" className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-2 rounded-full shadow-lg hover:shadow-2xl hover:from-teal-600 hover:to-green-600 transition-all duration-300">
+              <a href="/profile" className="hover:text-green-300">Profile</a>
+                          <a href="/signup" className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-2 rounded-full shadow-lg hover:shadow-2xl hover:from-teal-600 hover:to-green-600 hover:text-green-300 transition-all duration-300">
                 Sign Up
               </a>
               <a href="/login" className="bg-gray-200 text-gray-700 px-6 py-2 rounded-full shadow-md hover:bg-gray-300 transition-all duration-300">

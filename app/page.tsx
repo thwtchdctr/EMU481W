@@ -6,7 +6,6 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useLogoutHook } from './lib/logoutHook';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
