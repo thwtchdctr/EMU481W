@@ -7,6 +7,20 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useLogoutHook } from '../lib/logoutHook';
 import { onAuthStateChanged, User } from "firebase/auth"; // Import getAuth instead of auth
 
+// List of interests for selection
+const interestsList = [
+    'Technology',
+    'Sports',
+    'Music',
+    'Movies',
+    'Travel',
+    'Art',
+    'Food',
+    'Fitness',
+    'Science',
+    'Fashion',
+];
+
 
 const ProfilePage = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -14,6 +28,7 @@ const ProfilePage = () => {
     const [userFullName, setUserFullName] = useState<string | null>(null);
     const [isEditing, setIsEditing] = useState(false);
     const [email, setEmail] = useState(user?.email || '');
+    const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
     const logout = useLogoutHook();
 
     const fetchUserFullName = async (uid: string) => {
@@ -72,6 +87,16 @@ const ProfilePage = () => {
         // Add any logic to save/update the email in your database here
     };
 
+    const toggleInterest = (interest: string) => {
+        setSelectedInterests((prev) =>
+            prev.includes(interest)
+                ? prev.filter((item) => item !== interest)
+                : [...prev, interest]
+        );
+    };
+
+    const isSelected = (interest: string) => selectedInterests.includes(interest);
+
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
@@ -89,24 +114,31 @@ const ProfilePage = () => {
                             className="text-gray-700 border rounded px-2 py-1"
                         />
                     ) : (
-                        <p className="text-gray-700">Email: {email}</p>
+                        <p className="text-gray-700">Email: {user.email}</p>
                     )}
 
                     <button
                         onClick={isEditing ? handleSaveClick : handleEditClick}
-                        className="px-0 py-0 border border-black"
+                        className="px-2 py-1 border border-black"
                     >
-                        <img
-                            src="https://img.freepik.com/free-vector/illustration-paper_53876-5846.jpg?t=st=1731253527~exp=1731257127~hmac=1f8289bbfbb36e4432fc2da351f79516e0c30fe216cd930a165bd04d50441f81&w=826"
-                            alt="Edit Email"
-                            className="w-8 h-8 cursor-pointer"
-                        />
+                       Edit
                     </button>
 
 
                 </div>
 
-                <p className="mt-4">This is your profile page.</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {interestsList.map((interest) => (
+                        <button
+                            key={interest}
+                            type="button"
+                            className={`px-3 py-2 border rounded-lg ${isSelected(interest) ? 'bg-green-500 text-white' : 'bg-gray-400'}`}
+                            onClick={() => toggleInterest(interest)}
+                        >
+                            {interest}
+                        </button>
+                    ))}
+                </div>
 
                 <button
                     className="mt-8 px-6 py-2 bg-gradient-to-r from-green-600 to-teal-600 text-white font-semibold rounded-lg hover:from-teal-700 hover:to-green-700 transition-all"
