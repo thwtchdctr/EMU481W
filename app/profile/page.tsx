@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { auth, db } from '../lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { useLogoutHook } from '../lib/logoutHook';
-import { onAuthStateChanged, User } from "firebase/auth"; // Import getAuth instead of auth
+import { onAuthStateChanged, User, sendEmailVerification, updateProfile, updateEmail } from "firebase/auth"
 
 // List of interests for selection
 const interestsList = [
@@ -26,8 +26,8 @@ const ProfilePage = () => {
   const [user, setUser] = useState<User | null>(null);
     const router = useRouter();
     const [userFullName, setUserFullName] = useState<string | null>(null);
+    const [email, setEmail] = useState<string | null>(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [email, setEmail] = useState(user?.email || '');
     const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
     const logout = useLogoutHook();
 
@@ -51,6 +51,7 @@ const ProfilePage = () => {
             if (user) {
                 setUser(user);
                 fetchUserFullName(user.uid);
+                setEmail(user.email);
             } else {
                 setUser(null);
                 setUserFullName(null);
@@ -82,9 +83,38 @@ const ProfilePage = () => {
         setEmail(e.target.value);
     };
 
-    const handleSaveClick = () => {
-        setIsEditing(false);
-        // Add any logic to save/update the email in your database here
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUserFullName(e.target.value);
+    }
+
+    const handleSaveClick = async () => {
+        if (user) {
+            try {
+                // Check if email is verified before updating
+                if (!user.emailVerified) {
+                    await sendEmailVerification(user); // Call sendEmailVerification on the user
+                    alert('Please verify your email before updating.');
+                    return;
+                }
+
+                // Update display name
+                if (user.displayName !== userFullName) {
+                    await updateProfile(user, { displayName: userFullName });
+                }
+
+                /**
+                 * 
+                if (email && user.email !== email) {
+                    await updateEmail(user, email);
+                }
+                 */
+
+                setIsEditing(false);
+                console.log("User profile updated successfully");
+            } catch (error) {
+                console.error("Error updating profile:", error);
+            }
+        }
     };
 
     const toggleInterest = (interest: string) => {
@@ -104,27 +134,35 @@ const ProfilePage = () => {
                     Welcome, {userFullName ? userFullName : 'User'}
                 </h2>
 
-                {/* Display email text or input based on editing state */}
                 <div className="flex items-center justify-center space-x-2">
+                    {/**
+                 * 
+                 *
                     {isEditing ? (
                         <input
                             type="text"
-                            value={email}
+                            value={(email as string)}
                             onChange={handleEmailChange}
                             className="text-gray-700 border rounded px-2 py-1"
                         />
                     ) : (
-                        <p className="text-gray-700">Email: {user.email}</p>
+                        <p className="text-gray-700">Email: {email}</p>
                     )}
+                 */}
+                    <p className="text-gray-700">Email: {email}</p>
+                </div>
 
-                    <button
-                        onClick={isEditing ? handleSaveClick : handleEditClick}
-                        className="px-2 py-1 border border-black"
-                    >
-                       Edit
-                    </button>
-
-
+                <div className="flex items-center justify-center space-x-2">
+                    {isEditing ? (
+                        <input
+                            type="text"
+                            value={(userFullName as string)}
+                            onChange={handleNameChange}
+                            className="text-gray-700 border rounded px-2 py-1"
+                        />
+                    ) : (
+                        <p className="text-gray-700">Name: {userFullName}</p>
+                    )}
                 </div>
 
                 <div className="flex flex-wrap gap-2 mb-4">
@@ -138,6 +176,14 @@ const ProfilePage = () => {
                             {interest}
                         </button>
                     ))}
+                </div>
+                <div>
+                    <button
+                        onClick={isEditing ? handleSaveClick : handleEditClick}
+                        className="px-2 py-1 border border-black"
+                    >
+                        {isEditing ? 'Save' : 'Edit'}
+                    </button>
                 </div>
 
                 <button
