@@ -6,22 +6,22 @@ export default function CalculatorsPage() {
   return (
     <section>
       {/* Hero Section with Green Background */}
-      <div className="relative h-64 bg-gradient-to-r from-green-400 via-teal-500 to-green-500 bg-cover bg-center">
+      <div className="relative h-64">
         {/* Ensure solid green background, removing any black */}
-        <div className="absolute inset-0 bg-green-500 opacity-100"></div>
-        <div className="relative z-10 flex items-center justify-center h-full bg-green-500 p-8">
+        <div className="absolute inset-0 "></div>
+        <div className="relative flex items-center justify-center h-full p-8">
           <h1 className="text-5xl font-bold text-white">Financial Calculators</h1>
         </div>
       </div>
 
       {/* Calculator Section */}
-      <section className="container mx-auto py-8 bg-gradient-to-br from-green-100 to-teal-100">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <CompositeInterestCalculator />
-          <YearsOfInvestingCalculator />
-          <RetirementCalculator />
-        </div>
-      </section>
+          <section className="container mx-auto py-8 relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  <CompositeInterestCalculator />
+                  <YearsOfInvestingCalculator />
+                  <RetirementCalculator />
+              </div>
+          </section>
     </section>
   );
 }

@@ -6,7 +6,6 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useLogoutHook } from './lib/logoutHook';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -42,15 +41,10 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
 
-  return (
+    return (
     <div>
-      {/* Hero Section */}
-      <section className="relative bg-green-400 h-screen flex justify-center items-center">
-        <img
-          src="https://img.freepik.com/free-vector/gradient-screensaver-green-tones_23-2148368885.jpg"
-          alt="Financial Literacy"
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
-        />
+        {/* Hero Section */}
+        <section className=" relative h-screen flex justify-center items-center">
         <div className="relative z-10 text-center text-white p-8 float:left">
           <motion.h1
             initial={{ opacity: 0, y: -50 }}
