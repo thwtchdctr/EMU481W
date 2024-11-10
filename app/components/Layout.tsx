@@ -9,7 +9,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </nav>
         </header>
         <main>{children}</main>
-        <footer className="bg-gray-800 text-white text-center p-4">
+        <footer className="text-white text-center p-4">
           <p>© 2024 Financial Literacy Website. All rights reserved.</p>
         </footer>
       </div>

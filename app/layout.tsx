@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   description: "Learn to manage your finances effectively",
 };
 
+
 // Main RootLayout component
 export default function RootLayout({
   children,
@@ -47,7 +48,7 @@ export default function RootLayout({
               <a href="/qa" className="text-white hover:text-yellow-200 transition-all duration-300">
                 QA
               </a>
-            </div>
+              </div>
             <div className="flex space-x-4">
               <a href="/signup" className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-2 rounded-full shadow-lg hover:shadow-2xl hover:from-teal-600 hover:to-green-600 transition-all duration-300">
                 Sign Up
@@ -71,9 +72,10 @@ export default function RootLayout({
         </main>
 
         {/* Footer */}
-        <footer className="mt-12 bg-gradient-to-r from-green-400 via-teal-500 to-blue-500 text-center p-6 text-white z-10">
-          <p>© 2024 Financial Literacy Website. All rights reserved.</p>
-        </footer>
+              <footer className="bg-gradient-to-r from-green-400 via-teal-500 to-blue-500 text-center p-6 text-white z-10">
+                  <p>© 2024 Financial Literacy Website. All rights reserved.</p>
+              </footer>
+
       </body>
     </html>
   );

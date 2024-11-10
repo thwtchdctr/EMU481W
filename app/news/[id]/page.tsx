@@ -37,7 +37,7 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
   if (!article) return <p>Loading...</p>;
 
   return (
-    <section className="container mx-auto py-12 bg-gradient-to-br from-green-100 to-teal-100">
+    <section className="container mx-auto py-12">
       <div className="p-6 bg-white shadow-lg rounded-lg">
         <img
           src={article.imageUrl}
