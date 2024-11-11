@@ -42,7 +42,7 @@ export default function NewsFeed() {
   if (loading) return <p className="text-center py-6 text-xl text-gray-600">Loading news...</p>;
 
   return (
-    <section className="container mx-auto py-12 px-4 md:px-8 lg:px-16 bg-gradient-to-br from-green-100 to-teal-100">
+    <section className="container mx-auto py-12 px-4 md:px-8 lg:px-16">
       <h1 className="text-4xl font-bold mb-4 text-teal-700">Latest Financial News</h1>
       {news.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
