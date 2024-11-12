@@ -11,20 +11,13 @@
   --accent: #ffffff; /* White for accents */
 }
 
-fullscreen{
-    width: 100vw;
-    height: 100vh;
-    overflow:hidden;
-    alight-items: center;
-    justify-content: center;
-}
-
 body {
-    color: var(--foreground);
-    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  background-color: var(--background); /* White background */
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Header Styles */
@@ -93,8 +86,5 @@ button {
 
 button:hover {
   background-color: var(--secondary);
-}
-img.rounded {
-    border-radius: 5%;
 }
 
