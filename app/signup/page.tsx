@@ -10,16 +10,13 @@ import Link from 'next/link';
 
 // List of interests for selection
 const interestsList = [
+  'Finance',
+  'Economy',
+  'Politics',
   'Technology',
-  'Sports',
-  'Music',
-  'Movies',
-  'Travel',
-  'Art',
-  'Food',
-  'Fitness',
-  'Science',
-  'Fashion',
+  'Investments',
+  'Health',
+  'Lifestyle',
 ];
 
 const SignupPage: React.FC = () => { // Added return type annotation React.FC
