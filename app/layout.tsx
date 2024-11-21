@@ -34,7 +34,7 @@ export default function RootLayout({
           >
         {/* Main Layout */}
         <div className="relative min-h-screen">
-            {/* Header with gradient */}
+            {/* Header */}
             <header className="w-full bg-transparent shadow-lg backdrop-blur-sm z-100">
               <nav className="container mx-auto p-6 flex justify-between items-center">
                 <div className="flex space-x-8">
