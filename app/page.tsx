@@ -55,7 +55,7 @@ export default function Home() {
                             initial={{ opacity: 0, y: -50 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 1 }}
-                            className="text-6xl font-bold mb-6 drop-shadow-lg"
+                            className="text-6xl font-bold mb-6 drop-shadow-lg text-white"
                         >
                             Profit Path
                         </motion.h1>
@@ -63,7 +63,7 @@ export default function Home() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 1, delay: 0.5 }}
-                            className="text-xl leading-relaxed drop-shadow-md"
+                            className="text-xl leading-relaxed drop-shadow-md text-white"
                         >
                             Take control of your financial life with our interactive tools and resources. Calculate interest, plan your retirement, and stay updated with the latest market trends.
                         </motion.p>

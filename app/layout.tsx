@@ -35,7 +35,7 @@ export default function RootLayout({
         {/* Main Layout */}
         <div className="relative min-h-screen">
             {/* Header */}
-            <header className="w-full bg-transparent shadow-lg backdrop-blur-sm z-100">
+            <header className="w-full bg-transparent backdrop-blur-sm z-100">
               <nav className="container mx-auto p-6 flex justify-between items-center">
                 <div className="flex space-x-8">
                   <a href="/" className="text-white hover:text-yellow-200 transition-all duration-300">
