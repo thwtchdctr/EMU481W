@@ -1,7 +1,6 @@
-"use client";
+"use client"; // Ensure this runs on the client
 
-// Import statements
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { auth } from '../lib/firebase';
@@ -13,6 +12,13 @@ const LoginPage = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  useEffect(() => {
+    // Check if user is already logged in and redirect to homepage
+    if (auth.currentUser) {
+      router.push('/');
+    }
+  }, [router]);
+
   const handleLoginSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -21,7 +27,7 @@ const LoginPage = () => {
       await setPersistence(auth, browserSessionPersistence);
       const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       console.log("User logged in successfully as:", userCredential.user);
-      router.push('/');
+      router.push('/'); // Redirect to the home page after successful login
     } catch (error) {
       console.error('Error during login:', error);
       setError('Login failed. Please check your credentials.');

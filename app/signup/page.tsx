@@ -1,6 +1,5 @@
-"use client"; // Client component
+"use client"; // Client-side code
 
-// Import Statements
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import { auth, db } from '../lib/firebase';
@@ -19,18 +18,15 @@ const interestsList = [
   'Lifestyle',
 ];
 
-const SignupPage: React.FC = () => { // Added return type annotation React.FC
-  // State variables for user details
+const SignupPage: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-
-  // Initialize router for page navigation
   const router = useRouter();
 
-  // Function to handle interest selection
+  // Toggle interests selection
   const toggleInterest = (interest: string) => {
     setSelectedInterests((prev) =>
       prev.includes(interest)
@@ -41,31 +37,29 @@ const SignupPage: React.FC = () => { // Added return type annotation React.FC
 
   const isSelected = (interest: string) => selectedInterests.includes(interest);
 
-  // Function to handle form submission
   const handleSignupSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     try {
-      // Create user in Firebase Auth
+      // Create user with Firebase authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Create user document in Firestore with name, email, and interests
+      // Save user data to Firestore
       await setDoc(doc(db, 'users', user.uid), {
         name,
         email,
         interests: selectedInterests,
       });
 
-      console.log('User registered and additional data stored in Firestore');
-      router.push('/login');
+      console.log('User registered successfully and data stored in Firestore');
+      router.push('/login'); // Redirect to the login page after successful sign-up
     } catch (error) {
       console.error('Error at registration: ', error);
       setError('Registration failed. Please check your details');
     }
   };
 
-  // UI
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
