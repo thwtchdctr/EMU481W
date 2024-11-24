@@ -1,31 +1,22 @@
-// EMU481W-nov12/app/page.tsx
-
 'use client';
 
 import { useState, useEffect } from 'react';
-import { auth, db } from './lib/firebase';
+import { auth } from './lib/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
 import { useLogoutHook } from './lib/logoutHook';
 import { motion } from 'framer-motion';
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
   const [userFullName, setUserFullName] = useState<string | null>(null);
+  const router = useRouter();
   const logout = useLogoutHook();
 
-  const fetchUserFullName = async (uid: string) => {
-    try {
-      const docRef = doc(db, 'users', uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        setUserFullName(data?.name || null);
-      } else {
-        console.log('No such document!');
-      }
-    } catch (error) {
-      console.error('Error fetching user data:', error);
+  // This function will be triggered when the 'Welcome User' button is clicked
+  const handleGoToProfile = () => {
+    if (user) {
+      router.push('/profile'); // Redirect to profile page
     }
   };
 
@@ -33,7 +24,7 @@ export default function Home() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        fetchUserFullName(user.uid);
+        setUserFullName(user.displayName || 'User');
       } else {
         setUser(null);
         setUserFullName(null);

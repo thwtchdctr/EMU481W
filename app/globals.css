@@ -35,7 +35,7 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--secondary); /* Lighter green on hover */
+  color: var(--accent); /* Lighter green on hover */
 }
 
 nav .button {

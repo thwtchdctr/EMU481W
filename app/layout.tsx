@@ -1,5 +1,3 @@
-// EMU481W-nov12/app/layout.tsx
-
 'use client';
 
 import localFont from 'next/font/local';
@@ -8,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from './lib/firebase';
 import { useLogoutHook } from './lib/logoutHook';
+import Link from 'next/link'; // Import Next.js Link for navigation
 
 // Import custom fonts
 const geistSans = localFont({
@@ -20,12 +19,6 @@ const geistMono = localFont({
   variable: '--font-geist-mono',
   weight: '100 900',
 });
-
-// Metadata for the website
-// export const metadata = {
-//   title: 'Financial Literacy Website',
-//   description: 'Learn to manage your finances effectively',
-// };
 
 // Main RootLayout component
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -83,11 +76,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <p className="text-white">Loading...</p>
               ) : user ? (
                 <>
-                  <p className="text-white font-semibold">
+                  {/* Make "Welcome, username!" clickable and link to /profile */}
+                  <Link
+                    href="/profile"
+                    className="text-white font-semibold hover:underline"
+                  >
                     Welcome, {userFullName || 'User'}!
-                  </p>
+                  </Link>
                   <button
-                    className="px-6 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full shadow-md hover:from-pink-600 hover:to-red-600 transition-all duration-300"
+                    className="px-6 py-2 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-full shadow-md hover:from-green-500 hover:to-green-700 transition-all duration-300"
                     onClick={logout}
                   >
                     Logout
