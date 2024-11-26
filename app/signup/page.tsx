@@ -1,38 +1,43 @@
-// EMU481W-nov12/app/signup/page.tsx
+//Client component
+"use client";
 
-"use client"; // Client component
+//Import Statements
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
+import { auth, db } from "../lib/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import Link from "next/link";
 
-// Import Statements
-import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
-import { auth, db } from '../lib/firebase';
-import { createUserWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import Link from 'next/link';
-
-// List of interests for selection
+//List of interest for news subscription
 const interestsList = [
-  'Finance',
-  'Economy',
-  'Politics',
-  'Technology',
-  'Investments',
-  'Health',
-  'Lifestyle',
+  "RealEstate",
+  "Finance",
+  "Economy",
+  "Politics",
+  "Technology",
+  "Other",
 ];
 
-const SignupPage: React.FC = () => { // Added return type annotation React.FC
-  // State variables for user details
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+//Signup page React component
+const SignupPage: React.FC = () => {
+  //State variables for user details
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [isAdmin, setIsAdmin] = useState(false); // Admin checkbox state
 
-  // Initialize router for page navigation
+  //Initialize router for page navigation
   const router = useRouter();
 
-  // Function to handle interest selection
+  /* @toggleInterest: Function to allow users to select interests to subscribe to while registering
+     params: interest (string), represents the selected interest */
   const toggleInterest = (interest: string) => {
     setSelectedInterests((prev) =>
       prev.includes(interest)
@@ -41,33 +46,45 @@ const SignupPage: React.FC = () => { // Added return type annotation React.FC
     );
   };
 
+  /* @isSelected: Function to check if the interest is selected 
+     params: interest (string), represents interest
+     return: boolean -> represents whether an interest has been selected */
   const isSelected = (interest: string) => selectedInterests.includes(interest);
 
-  // Function to handle form submission
+  /* @handleSignupSubmit: Function to handle the submission of the signup form
+     params: e (FormEvent), event of the form being submitted */
   const handleSignupSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     try {
-      // Create user in Firebase Auth
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      //Create the user credential in Firebase Auth and set user variable
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
 
-      await updateProfile(user, {displayName: name});
+      //Update user profile display name in Firebase to allow for representation in application
+      await updateProfile(user, { displayName: name });
 
-      // Create user document in Firestore with name, email, and interests
-      await setDoc(doc(db, 'users', user.uid), {
+      //Create user document in Firestore with name, email, interests, and admin status
+      await setDoc(doc(db, "users", user.uid), {
         name,
         email,
         interests: selectedInterests,
+        isAdmin, // Store admin status in Firestore
       });
 
+      //Sign user out (createUserWithEmailAndPassword automatically signs user in on registration complete)
       await signOut(auth);
 
-      console.log('User registered and additional data stored in Firestore');
-      router.push('/login');
+      //Console success and push to login page
+      console.log("User registered and additional data stored in Firestore");
+      router.push("/login");
     } catch (error) {
-      console.error('Error at registration: ', error);
-      setError('Registration failed. Please check your details');
+      console.error("Error at registration: ", error);
+      setError("Registration failed. Please check your details");
     }
   };
 
@@ -113,20 +130,43 @@ const SignupPage: React.FC = () => { // Added return type annotation React.FC
               <button
                 key={interest}
                 type="button"
-                className={`px-3 py-2 border rounded-lg ${isSelected(interest) ? 'bg-green-500 text-white' : 'bg-gray-400'}`}
+                className={`px-3 py-2 border rounded-lg ${
+                  isSelected(interest)
+                    ? "bg-green-500 text-white"
+                    : "bg-gray-400 text-white"
+                }`}
                 onClick={() => toggleInterest(interest)}
               >
                 {interest}
               </button>
             ))}
           </div>
+          <div className="mb-4">
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                checked={isAdmin}
+                onChange={(e) => setIsAdmin(e.target.checked)}
+                className="mr-2"
+              />
+              Register as Admin
+            </label>
+          </div>
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <div className="text-right">
-            <button className="px-4 py-2 bg-green-500 text-white rounded-lg" type="submit">Sign Up</button>
+            <button
+              className="px-4 py-2 bg-green-500 text-white rounded-lg"
+              type="submit"
+            >
+              Sign Up
+            </button>
           </div>
         </form>
         <p className="mt-4 text-center">
-          Already have an account? <Link href="/login" className="text-green-500">Log In</Link>
+          Already have an account?{" "}
+          <Link href="/login" className="text-green-500">
+            Log In
+          </Link>
         </p>
       </div>
     </div>
@@ -134,5 +174,4 @@ const SignupPage: React.FC = () => { // Added return type annotation React.FC
 };
 
 export default SignupPage;
-
 

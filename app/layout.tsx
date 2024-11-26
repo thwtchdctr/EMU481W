@@ -1,15 +1,15 @@
-// EMU481W-nov12/app/layout.tsx
-
+//Client component
 'use client';
 
+//Import statements
 import localFont from 'next/font/local';
 import './globals.css';
 import { useState, useEffect } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth } from './lib/firebase';
+import { auth, db } from './lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import { useLogoutHook } from './lib/logoutHook';
 
-// Import custom fonts
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -27,21 +27,47 @@ const geistMono = localFont({
 //   description: 'Learn to manage your finances effectively',
 // };
 
-// Main RootLayout component
+//Main RootLayout component
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  //State vars
   const [user, setUser] = useState<User | null>(null);
   const [userFullName, setUserFullName] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const logout = useLogoutHook();
+  const [adminString, setAdminString] = useState<string>("");
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUser(user);
-        setUserFullName(user.displayName || 'User'); // Use displayName if available
+        setUserFullName(user.displayName || 'null');
+
+        //Fetch user's admin status from Firestore
+        try {
+          const userDocRef = doc(db, 'users', user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists()) {
+            if(userDoc.data()?.isAdmin){
+              setIsAdmin(true);
+              setAdminString("ADMIN");
+            } else{
+              setIsAdmin(false);
+              setAdminString("");
+            }
+          } else {
+            setIsAdmin(false);
+            setAdminString("");
+          }
+        } catch (error) {
+          console.error('Error fetching user document:', error);
+          setIsAdmin(false);
+        }
       } else {
         setUser(null);
         setUserFullName(null);
+        setIsAdmin(false); // Reset admin state if no user is logged in
       }
       setLoading(false); // Set loading to false once the user state is resolved
     });
@@ -71,9 +97,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <a href="/qa" className="text-white hover:text-yellow-200 transition-all duration-300">
                 QA
               </a>
-              <a href="/mock-register" className="text-white hover:text-yellow-200 transition-all duration-300">
-                Mock Register
-              </a>
             </div>
 
             {/* User Actions */}
@@ -81,11 +104,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {loading ? (
                 // Show a loading placeholder while waiting for the auth state
                 <p className="text-white">Loading...</p>
-              ) : user ? (
+              ) : user?(
                 <>
-                  <p className="text-white font-semibold">
-                    Welcome, {userFullName || 'User'}!
-                  </p>
+                  <a href="/profile" className="text-white font-semibold">
+                    {adminString} Welcome, {user.displayName || 'null'}!
+                  </a>
                   <button
                     className="px-6 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full shadow-md hover:from-pink-600 hover:to-red-600 transition-all duration-300"
                     onClick={logout}

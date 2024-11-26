@@ -1,7 +1,7 @@
-// EMU481W-nov12/app/page.tsx
-
+//client component
 'use client';
 
+//import statements
 import { useState, useEffect } from 'react';
 import { auth, db } from './lib/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
@@ -9,15 +9,25 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useLogoutHook } from './lib/logoutHook';
 import { motion } from 'framer-motion';
 
+/* @Home() -> Renders the home page of the application
+ */
 export default function Home() {
+  //State vars
   const [user, setUser] = useState<User | null>(null);
   const [userFullName, setUserFullName] = useState<string | null>(null);
+
+  //Implement logout hook to allow user to logout
   const logout = useLogoutHook();
 
+  /*@fetchFullUserName() -> Function to fetch the users full name from database based on the uid as string
+    @params -> uid (string): user id as string */
   const fetchUserFullName = async (uid: string) => {
     try {
+      //get user doc
       const docRef = doc(db, 'users', uid);
       const docSnap = await getDoc(docRef);
+
+      //if user exists
       if (docSnap.exists()) {
         const data = docSnap.data();
         setUserFullName(data?.name || null);
@@ -29,7 +39,10 @@ export default function Home() {
     }
   };
 
+  /* @useEffect() -> React effect that lisents to state of auth changes using Firebase"s "onAuthStateChanged"
+   */
   useEffect(() => {
+    //Clean up listener on unmount
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);

@@ -6,17 +6,29 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { useRouter } from 'next/navigation';
 
+/* @function -> PasswordResetPage(): Page that allows for a user to reset their account password via a reset email.
+   functionality is almost entirely provided by built in Firebase functions.
+ * @returns -> JSX Ui for the reset password page
+ */
 const PasswordResetPage = () => {
-
+    //State vars
     const [resetEmail, setResetEmail] = useState('');
+
+    //Router for nav
     const router = useRouter();
 
+    /* @function -> handleResetSubmit(): Function that handles the submission of password reset
+     * @param -> e (FormEvent): Event object from form submission
+     */
     const handleResetSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
         try {
+            //Send password reset email
             await sendPasswordResetEmail(auth, resetEmail);
             console.log('Password email sent');
+
+            //push to home page
             router.push('/');
         } catch (error) {
             console.error('Error sending password reset email: ', error);

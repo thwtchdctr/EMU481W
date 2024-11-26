@@ -10,7 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         </header>
         <main>{children}</main>
         <footer className="text-white text-center p-4">
-          <p>© 2024 Financial Literacy Website. All rights reserved.</p>
+          <p>© 2024 Financial Literacy Website. All right reserved.</p>
         </footer>
       </div>
     );
