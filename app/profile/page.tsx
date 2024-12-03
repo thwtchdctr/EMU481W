@@ -14,7 +14,7 @@ import { doc, getDoc, setDoc, deleteDoc, collection, getDocs } from "firebase/fi
 import { db } from "@/lib/firebase";
 
 //News categories
-const categories = ["RealEstate", "Politics", "Economy", "Technology", "Finance"];
+const categories = ["RealEstate", "Politics", "Economy", "Technology", "Finance", "Other"];
 
 /* @function: profilePage() ->
  */
