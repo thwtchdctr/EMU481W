@@ -1,7 +1,6 @@
-//client component
 'use client';
 
-//import statements
+// Import statements
 import { useState, useEffect } from 'react';
 import { auth, db } from './lib/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
@@ -9,25 +8,25 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useLogoutHook } from './lib/logoutHook';
 import { motion } from 'framer-motion';
 
-/* @Home() -> Renders the home page of the application
- */
+/* @Home() -> Renders the home page of the application */
 export default function Home() {
-  //State vars
+  // State vars
   const [user, setUser] = useState<User | null>(null);
   const [userFullName, setUserFullName] = useState<string | null>(null);
+  const [showVideo, setShowVideo] = useState(false); // State for showing/hiding the video
 
-  //Implement logout hook to allow user to logout
+  // Implement logout hook to allow user to logout
   const logout = useLogoutHook();
 
-  /*@fetchFullUserName() -> Function to fetch the users full name from database based on the uid as string
-    @params -> uid (string): user id as string */
+  /* @fetchFullUserName() -> Function to fetch the user's full name from the database based on the uid as string
+     @params -> uid (string): user id as string */
   const fetchUserFullName = async (uid: string) => {
     try {
-      //get user doc
+      // Get user doc
       const docRef = doc(db, 'users', uid);
       const docSnap = await getDoc(docRef);
 
-      //if user exists
+      // If user exists
       if (docSnap.exists()) {
         const data = docSnap.data();
         setUserFullName(data?.name || null);
@@ -39,10 +38,9 @@ export default function Home() {
     }
   };
 
-  /* @useEffect() -> React effect that lisents to state of auth changes using Firebase"s "onAuthStateChanged"
-   */
+  /* @useEffect() -> React effect that listens to state of auth changes using Firebase's "onAuthStateChanged" */
   useEffect(() => {
-    //Clean up listener on unmount
+    // Clean up listener on unmount
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
@@ -82,6 +80,41 @@ export default function Home() {
           >
             Take control of your financial life with our interactive tools and resources. Calculate interest, plan your retirement, and stay updated with the latest market trends.
           </motion.p>
+
+          {/* User Guide Button */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="mt-6"
+          >
+            <button
+              onClick={() => setShowVideo(!showVideo)}
+              className="px-6 py-3 bg-blue-500 text-white font-bold rounded-md transition-transform transform hover:scale-105"
+            >
+              {showVideo ? 'Hide User Guide' : 'Show User Guide'}
+            </button>
+          </motion.div>
+
+          {/* Video Section */}
+          {showVideo && (
+            <motion.div
+              initial={{ height: 0 }}
+              animate={{ height: 'auto' }}
+              transition={{ duration: 1 }}
+              className="mt-6 overflow-hidden"
+            >
+              <div className="relative w-full h-0 pb-[56.25%]"> {/* 16:9 aspect ratio */}
+                <iframe
+                  src="https://www.youtube.com/embed/c3EBsTJlFbU"
+                  title="User Guide Video"
+                  className="absolute inset-0 w-full h-full"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
     </div>
